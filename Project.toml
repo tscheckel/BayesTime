@@ -1,0 +1,4 @@
+name = "BayesTime"
+uuid = "d9a7c0d8-790a-43c4-973b-029d0c48e73c"
+version = "0.1.0"
+authors = ["tscheckel <tobias.scheckel@hotmail.de>"]
