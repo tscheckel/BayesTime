@@ -1,5 +1,8 @@
 module BayesTime
+    # Import or export symbols
+    export get_hs
 
-greet() = print("Hello World!")
+    # Include submodules or helper files
+    include("get_hs.jl")
 
-end # module BayesTime
+end # module

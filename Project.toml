@@ -2,3 +2,9 @@ name = "BayesTime"
 uuid = "d9a7c0d8-790a-43c4-973b-029d0c48e73c"
 version = "0.1.0"
 authors = ["tscheckel <tobias.scheckel@hotmail.de>"]
+
+[deps]
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+
+[compat]
+Distributions = "0.25.122"
