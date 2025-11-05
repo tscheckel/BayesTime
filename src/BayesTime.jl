@@ -4,5 +4,7 @@ module BayesTime
 
     # Include submodules or helper files
     include("get_hs.jl")
+    include("mlag.jl")
+    include("offsetting.jl")
 
 end # module
