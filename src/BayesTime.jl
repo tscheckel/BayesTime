@@ -1,10 +1,11 @@
 module BayesTime
     # Import or export symbols
+    export forcePD
+    export get_companion
     export get_hs
+    export get_IRF
     export mlag
     export offsetting
-    export get_companion
-    export get_IRF
     
     # globally required packages
     using Distributions
@@ -16,5 +17,6 @@ module BayesTime
     include("offsetting.jl")
     include("get_companion.jl")
     include("get_IRF.jl") # requires get_companion.jl
+    include("forcePD.jl")
 
 end # module
