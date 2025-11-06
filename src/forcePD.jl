@@ -13,6 +13,8 @@ function forcePD(X::Matrix{Float64}, tol::Float64=1e-12)
     # make symmertric
     if X != X'
         Xsimm = (X + X') ./ 2
+    else
+        Xsimm = copy(X)
     end
 
     # force all eigenvalues to be positive
