@@ -5,6 +5,10 @@ module BayesTime
     export offsetting
     export get_companion
     export get_IRF
+    
+    # globally required packages
+    using Distributions
+    using LinearAlgebra
 
     # Include submodules or helper files
     include("get_hs.jl")
