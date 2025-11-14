@@ -1,7 +1,16 @@
+
+x = 1e-8
+
 function offsetting(x;
     thrshld1 = 1e-6, thrshld2 = 1e6)
-    y = copy(x)
-    y[x < thrshld1] = thrshld1
-    y[x > thrshld2] = thrshld2
+    if x < thrshld1
+        y = thrshld1
+    elseif x > thrshld2
+        y = thrshld2
+    else
+        y = copy(x)
+    end
+    
     return y
 end
+
