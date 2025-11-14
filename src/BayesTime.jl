@@ -6,6 +6,7 @@ module BayesTime
     export get_IRF
     export mlag
     export offsetting
+    export CCCM
     
     # globally required packages
     using Distributions
@@ -18,5 +19,5 @@ module BayesTime
     include("get_companion.jl")
     include("get_IRF.jl") # requires get_companion.jl
     include("forcePD.jl")
-
+    include("CCCM.jl")
 end # module
