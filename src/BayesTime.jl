@@ -8,10 +8,13 @@ module BayesTime
     export offsetting
     export CCCM
     export SAVS
+    export trace_plot
     
     # globally required packages
     using Distributions
     using LinearAlgebra
+    using MCMCDiagnosticTools
+    using Plots
 
     # Include submodules or helper files
     include("get_hs.jl")
@@ -22,4 +25,5 @@ module BayesTime
     include("forcePD.jl")
     include("CCCM.jl")
     include("SAVS.jl")
+    include("trace_plot.jl")
 end # module
