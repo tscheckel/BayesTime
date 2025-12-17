@@ -10,6 +10,7 @@ module BayesTime
     export SAVS
     export trace_plot
     export lower_tri
+    export VAR_OLS
     
     # globally required packages
     using Distributions
@@ -28,4 +29,5 @@ module BayesTime
     include("SAVS.jl")
     include("trace_plot.jl")
     include("lower_tri.jl")
+    include("VAR_OLS.jl")
 end # module
