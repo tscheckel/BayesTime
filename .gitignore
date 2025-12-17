@@ -1,5 +1,5 @@
 # local
 Manifest.toml
 
-sandbox/ # folder with simulation experiments to validate correctness of estimators
-# sandbox/test_cccm.jl
+# folder with simulation experiments to validate correctness of estimators
+sandbox/
