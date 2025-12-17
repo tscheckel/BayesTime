@@ -9,6 +9,7 @@ module BayesTime
     export CCCM
     export SAVS
     export trace_plot
+    export lower_tri
     
     # globally required packages
     using Distributions
@@ -26,4 +27,5 @@ module BayesTime
     include("CCCM.jl")
     include("SAVS.jl")
     include("trace_plot.jl")
+    include("lower_tri.jl")
 end # module
