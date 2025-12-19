@@ -11,6 +11,8 @@ module BayesTime
     export trace_plot
     export lower_tri
     export VAR_OLS
+    export diff_lag
+    export data_trans
     
     # globally required packages
     using Distributions
@@ -30,4 +32,6 @@ module BayesTime
     include("trace_plot.jl")
     include("lower_tri.jl")
     include("VAR_OLS.jl")
-end # module
+    include("diff_lag.jl")
+    include("data_trans.jl") # requires diff_lag.jl
+end
