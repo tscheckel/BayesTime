@@ -19,6 +19,7 @@ module BayesTime
     using LinearAlgebra
     using MCMCDiagnosticTools
     using Plots
+    using DataFrames
 
     # Include submodules or helper files
     include("get_hs.jl")
