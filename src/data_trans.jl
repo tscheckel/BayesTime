@@ -30,7 +30,7 @@ function data_trans(;
     T, M = size(data)
     
     # initialize output object
-    data_out = copy(data) #fill(NaN, T, M)
+    data_out = Float64.(copy(data)) #fill(NaN, T, M)
     data_out .= NaN # set all values to NaN (as differencing will create NaNs at start)
     
     # loop over variables and apply transformations
