@@ -43,9 +43,7 @@ function data_trans(;
             data_out[tlag+1:end, i] = diff_lag(data[:, i], tlag)
         elseif tcodes[i] == 3
             # second difference
-            # CHECK THIS!
-            # data_out[tlag*2+1:end, i] = diff_lag(diff_lag(data[:, i], tlag), tlag)
-            error("Second difference not yet implemented")
+            data_out[tlag*2+1:end, i] = diff_lag(diff_lag(data[:, i], tlag), tlag)
         elseif tcodes[i] == 4
             # log level
             data_out[:, i] = log.(data[:, i])
@@ -54,9 +52,7 @@ function data_trans(;
             data_out[tlag+1:end, i] = diff_lag(log.(data[:,i]), tlag)*100
         elseif tcodes[i] == 6
             # log second difference
-            # CHECK THIS!
-            # data_out[tlag*2+1:end, i] = diff_lag(diff_lag(log.(data[:, i]), tlag), tlag)*100
-            error("Log-second difference not yet implemented")
+            data_out[tlag*2+1:end, i] = diff_lag(diff_lag(log.(data[:, i]), tlag), tlag)*100
         else
             error("Unknown transformation code: $(tcodes[i])")
         end
