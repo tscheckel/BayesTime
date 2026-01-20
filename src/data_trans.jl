@@ -24,7 +24,8 @@ at the beginning of the series.
 Tobias Scheckel
 """
 function data_trans(;
-    data::Union{DataFrame, AbstractMatrix}, tcodes::Vector{Int}, tlag::Int = 1)
+    data::Union{DataFrame, AbstractMatrix}, tcodes::Vector{Int},
+    tlag::Int = 1, shorten::Bool = false)
     
     # get dimensions
     T, M = size(data)
@@ -57,6 +58,14 @@ function data_trans(;
             error("Unknown transformation code: $(tcodes[i])")
         end
     end
-    
+
+    # shorten output if requested (dropping leading NaNs)
+    if shorten
+        if any(tcodes .== 3) || any(tcodes .== 6)
+            data_out = data_out[(tlag*2+1):end, :]
+        elseif any(tcodes .== 2) || any(tcodes .== 5)
+            data_out = data_out[(tlag+1):end, :]
+        end
+    end
     return data_out
 end
