@@ -4,11 +4,11 @@
 Estimate a Vector Autoregression via Ordinary Least Squares. 
 
 # INPUTS:
-- `data::Matrix{Float64}`: Data matrix where rows are observations and columns are variables
-- `Exo`: Optional matrix of exogenous variables (default: nothing)
+- `data::Matrix{Float64}`: TxM-dimensional Data matrix where rows are observations and columns are variables
+- `Exo`: TxM-dimensional Optional matrix of exogenous variables (default: nothing)
 - `P::Int`: Number of lags in the VAR (default: 1)
 - `cons::Bool`: Whether to include a constant term (default: true)
-- `quant::Vector{Float64}`: Quantiles for confidence intervals (default: [.
+- `quant::Vector{Float64}`: Quantiles for confidence intervals (default: [.025; .5; .975])
 
 # OUTPUTS:
 - `Dict` containing:
@@ -21,19 +21,29 @@ Estimate a Vector Autoregression via Ordinary Least Squares.
 Tobias Scheckel
 """
 function VAR_OLS(;
-    data::Matrix{Float64}, Exo = nothing,
-    P = 1, cons = true,
+    data::Union{Matrix{Float64}, DataFrame}, Exo::Union{Matrix{Float64}, DataFrame, nothing} = nothing,
+    P::Int = 1, cons::Bool = true,
     quant::Vector{Float64} = [.025; .5; .975]
 )
+    # CHECK INPUT DATATYPES
+    if isa(data, DataFrame)
+        data = Matrix{Float64}(data)
+    end 
+    if isa(Exo, DataFrame)
+        Exo = Matrix{Float64}(Exo)
+    end
     # get quantiles of standard Gaussian (for CIs)
     normq = quantile.(Normal(), quant)
-    
+
     # ---- DATA ----
+    # create matrix of dependent variables and regressors
     Y = data[P+1:end,:]
     T, M = size(Y)
+    # create design matrix
     X = mlag(data, P)
+    # add exogenous regressors if provided
     if !isnothing(Exo)
-        X = hcat(X, Exo)
+        X = hcat(X, Exo[P+1:end,:])
     end
     if cons 
         X = hcat(X, fill(1.0, T))
