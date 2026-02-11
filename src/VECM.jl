@@ -7,7 +7,7 @@ Wrapper around `tsDyn::VECM` via `RCall`.
 # Inputs
 - `data`: T x M matrix-like object (`AbstractMatrix` or `DataFrame`)
 - `Exo`: optional T x K exogenous matrix-like object (`nothing` by default)
-- `P`: lag order argument passed to `tsDyn::VECM`
+- `P`: VAR lag order in levels. Internally mapped to `tsDyn::VECM(lag = P - 1)`.
 - `r`: cointegration rank
 - `cons`: include intercept
 - `trend`: include deterministic trend
@@ -33,7 +33,7 @@ function VECM(;
 )
     P < 1 && throw(ArgumentError("P must be >= 1."))
     r < 0 && throw(ArgumentError("r must be >= 0."))
-
+    
     # Capture variable names before matrix conversion (plain matrices do not carry names).
     data_col_names = if data isa DataFrame
         String.(names(data))
@@ -95,9 +95,9 @@ function VECM(;
     }
 
     if (is.null(exo_mat)) {
-      vecm <- VECM(data_mat, lag = P, r = r, include = include, estim = estim)
+      vecm <- VECM(data_mat, lag = P-1, r = r, include = include, estim = estim)
     } else {
-      vecm <- VECM(data_mat, lag = P, r = r, include = include, estim = estim, exogen = exo_mat)
+      vecm <- VECM(data_mat, lag = P-1, r = r, include = include, estim = estim, exogen = exo_mat)
     }
 
     B <- coef(vecm)
