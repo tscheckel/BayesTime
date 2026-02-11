@@ -15,11 +15,12 @@ module BayesTime
     export data_trans
     
     # globally required packages
+    using DataFrames
     using Distributions
     using LinearAlgebra
     using MCMCDiagnosticTools
+    using NamedArrays
     using Plots
-    using DataFrames
 
     # Include submodules or helper files
     include("get_hs.jl")
