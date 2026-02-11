@@ -1,5 +1,5 @@
 """
-    VAR_OLS(data, Exo, P = 1, cons = true, quant = [.025; .5; .975])
+    VAR_OLS(data, Exo, P = 1, cons = true, trend = false, quant = [.025; .5; .975])
 
 Estimate a Vector Autoregression via Ordinary Least Squares. 
 
@@ -8,6 +8,7 @@ Estimate a Vector Autoregression via Ordinary Least Squares.
 - `Exo`: TxM-dimensional Optional matrix of exogenous variables (default: nothing)
 - `P::Int`: Number of lags in the VAR (default: 1)
 - `cons::Bool`: Whether to include a constant term (default: true)
+- `trend::Bool`: Whether to include a deterministic linear time trend (default: false)
 - `quant::Vector{Float64}`: Quantiles for confidence intervals (default: [.025; .5; .975])
 
 # OUTPUTS:
@@ -22,7 +23,7 @@ Tobias Scheckel
 """
 function VAR_OLS(;
     data::Union{AbstractMatrix{<:Real}, DataFrame}, Exo::Union{AbstractMatrix{<:Real}, DataFrame, Nothing} = nothing,
-    P::Int = 1, cons::Bool = true,
+    P::Int = 1, cons::Bool = true, trend::Bool = false,
     quant::Vector{Float64} = [.025; .5; .975]
 )
     # CHECK INPUT DATATYPES
@@ -68,6 +69,10 @@ function VAR_OLS(;
             exo_names = collect(names(Exo_slice, 2))
         end
         reg_names = vcat(reg_names, exo_names)
+    end
+    if trend
+        X = hcat(X, collect(1.0:T))
+        reg_names = vcat(reg_names, ["trend"])
     end
     if cons 
         X = hcat(X, fill(1.0, T))
