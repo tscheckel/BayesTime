@@ -123,11 +123,7 @@ function VECM(;
         end
 
         # Deterministic/exogenous terms that are not ECT and not lagged endogenous terms.
-<<<<<<< HEAD
         lag_pattern = Regex(" -[0-9]+\$")
-=======
-        lag_pattern = Regex(" -[0-9]+$")
->>>>>>> 0e0b3a39631d4152a745addd7f2cafd97d34983d
         det_exo_cols = [c for c in cn if c != "ECT" && !occursin(lag_pattern, c)]
 
         A_col_lag = [string(v, "_L", lag_idx) for lag_idx in 1:P for v in var_names]
