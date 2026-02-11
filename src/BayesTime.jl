@@ -13,7 +13,8 @@ module BayesTime
     export VAR_OLS
     export diff_lag
     export data_trans
-    
+    export VECM
+
     # globally required packages
     using DataFrames
     using Distributions
@@ -21,6 +22,7 @@ module BayesTime
     using MCMCDiagnosticTools
     using NamedArrays
     using Plots
+    using RCall
 
     # Include submodules or helper files
     include("get_hs.jl")
@@ -36,4 +38,5 @@ module BayesTime
     include("VAR_OLS.jl")
     include("diff_lag.jl")
     include("data_trans.jl") # requires diff_lag.jl
+    include("VECM.jl")
 end
