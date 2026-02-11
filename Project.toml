@@ -11,6 +11,7 @@ LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 MCMCDiagnosticTools = "be115224-59cd-429b-ad48-344e309966f0"
 NamedArrays = "86f7a689-2022-50b4-a561-43c23ac3c673"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+RCall = "6f49c342-dc21-5d91-9882-a32aef131414"
 
 [compat]
 CovarianceMatrices = "0.30.3"
@@ -20,3 +21,4 @@ LinearAlgebra = "1.12.0"
 MCMCDiagnosticTools = "0.3.15"
 NamedArrays = "0.10.5"
 Plots = "1.41.3"
+RCall = "0.14.12"
