@@ -47,7 +47,7 @@ function data_trans(;
             data_out[tlag*2+1:end, i] = diff_lag(diff_lag(data[:, i], tlag), tlag)
         elseif tcodes[i] == 4
             # log level
-            data_out[:, i] = log.(data[:, i])
+            data_out[:, i] = log.(data[:, i])*100
         elseif tcodes[i] == 5
             # log first difference
             data_out[tlag+1:end, i] = diff_lag(log.(data[:,i]), tlag)*100
