@@ -9,7 +9,7 @@
 # X_PD:         amended X, which is symmetric and has eigenvalues > 0
 
 # ---- FUNCTION BODY ----
-function forcePD(X::Matrix{Float64}, tol::Float64=1e-12)
+function forcePD(X::AbstractMatrix{<:Real}, tol::Float64=1e-12)
     # make symmertric
     if X != X'
         Xsimm = (X + X') ./ 2
