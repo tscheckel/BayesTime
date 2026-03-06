@@ -149,9 +149,11 @@ function VECM(;
             return [string(v, " -", lag_idx) for v in var_names]
         end
 
-        # Deterministic/exogenous terms that are not ECT and not lagged endogenous terms.
+        # Deterministic/exogenous terms that are not cointegration terms (ECT, ECT1, ...)
+        # and not lagged endogenous terms.
         lag_pattern = r" -[0-9]+$"
-        det_exo_cols = [c for c in cn if c != "ECT" && !occursin(lag_pattern, c)]
+        ect_pattern = r"^ECT[0-9]*$"
+        det_exo_cols = [c for c in cn if !occursin(ect_pattern, c) && !occursin(lag_pattern, c)]
 
         # Target VAR coefficient layout:
         # [A1 A2 ... AP | deterministic/exogenous terms]
