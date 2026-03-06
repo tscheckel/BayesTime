@@ -34,7 +34,9 @@ function forcePD(X::AbstractMatrix{<:Real}, tol::Real=1e-12; maxiter::Int=12, gr
         try
             λmin = minimum(eigvals(Symmetric(X_pd)))
             δ = max(zero(T), T(tol) - T(λmin))
-            X_pd .+= δ .* I
+            # Avoid broadcasting with UniformScaling (`I`) on Julia 1.12.
+            # Adding δI is equivalent to shifting only the diagonal entries.
+            X_pd[diagind(X_pd)] .+= δ
             return X_pd
         catch
             # Fall through to Cholesky-jitter path.
@@ -49,7 +51,9 @@ function forcePD(X::AbstractMatrix{<:Real}, tol::Real=1e-12; maxiter::Int=12, gr
         catch e
             if e isa PosDefException || e isa ZeroPivotException || e isa SingularException
                 # Increase diagonal regularization geometrically until Cholesky succeeds.
-                X_pd .+= jitter .* I
+                # Avoid broadcasting with UniformScaling (`I`) on Julia 1.12.
+                # Adding jitter*I is equivalent to shifting only the diagonal.
+                X_pd[diagind(X_pd)] .+= jitter
                 jitter *= T(growth)
             else
                 rethrow(e)
