@@ -14,7 +14,8 @@ module BayesTime
     export diff_lag
     export data_trans
     export VECM
-
+    export VAR_to_MA
+    
     # globally required packages
     using DataFrames
     using Distributions
@@ -39,4 +40,5 @@ module BayesTime
     include("diff_lag.jl")
     include("data_trans.jl") # requires diff_lag.jl
     include("VECM.jl")
+    include("VAR_to_MA.jl")
 end
