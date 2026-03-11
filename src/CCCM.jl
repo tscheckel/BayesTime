@@ -1,18 +1,24 @@
-# function to implement the efficient estimation algorithm for large VARs with non-conjugate priors and SV
-# author: tobias scheckel
-# created: May 16 2025
+"""
+    CCCM(; Y, X, Π, A, Λ, Π_M0, Π_V0)
 
-# INPUTS:
-# Y:        TxM-matrix of dependent variables
-# X:        TxK-matrix of regressors
-# Π:        KxM-matrix of VAR coefficients (previous draw)
-# A:        MxM-matrix governing contemporaneous interactions (should be upper-triangular)
-# Λ:        TxM-matrix of VAR residual variances
-# Π_V0:     KxM-matrix of VAR coefficient prior variances
+Implement the equation-by-equation CCCM update for VAR coefficients under
+stochastic volatility and non-conjugate priors.
 
-# OUTPUTS:
-# Π:        KxM-matrix of VAR coefficients (updated draw)
+# Inputs
+- `Y`: `T x M` matrix of dependent variables
+- `X`: `T x K` matrix of regressors
+- `Π`: `K x M` matrix of VAR coefficients (previous draw)
+- `A`: `M x M` matrix governing contemporaneous interactions (typically upper-triangular)
+- `Λ`: `T x M` matrix of residual variances
+- `Π_M0`: `K x M` matrix of prior means for VAR coefficients
+- `Π_V0`: `K x M` matrix of prior variances for VAR coefficients
 
+# Returns
+- `Π`: updated `K x M` matrix of VAR coefficients
+
+# Author
+Tobias Scheckel
+"""
 function CCCM(;Y, X, Π, A, Λ, Π_M0, Π_V0)
     # get dimensions
     K, N = size(Π)

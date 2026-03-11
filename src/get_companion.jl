@@ -1,17 +1,22 @@
-# function to create companion form of VAR coefficient matrice
-# author: tobias scheckel
+"""
+    get_companion(; A, M, P)
 
-# INPUTS:
-# - A:              MxK-matrix, VAR coefficients (ATTENTION: coefficients associated with deterministic terms can be included but need to be ordered last)
-# - M:              scalar, number of equations
-# - P:              scalar, number of lags
+Create companion-form matrices for a VAR(P).
 
-# OUTPUTS:
-# dictionary containing the following:
-# - Acm:            (MP)x(MP)-matrix, VAR coefficients in companion form
-# - J:              Mx(MP)-matrix
+# Inputs
+- `A::Matrix{Float64}`: `M x K` VAR coefficient matrix. Lag blocks must appear first as
+  `[A_1 A_2 ... A_P]`. Deterministic/exogenous coefficients may be appended after lag blocks.
+- `M::Int`: number of equations (endogenous variables)
+- `P::Int`: number of lags
 
-# ----- FUNCTION BODY -----
+# Returns
+- `Dict` with:
+  - `"Acm"`: `(M*P) x (M*P)` companion matrix
+  - `"J"`: `M x (M*P)` selector matrix
+
+# Author
+Tobias Scheckel
+"""
 function get_companion(;A::Matrix{Float64}, M::Int, P::Int)
     ## ----- Generate J -----
     J = hcat(I(M), zeros(M, M*(P-1)))

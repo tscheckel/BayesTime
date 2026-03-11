@@ -1,14 +1,22 @@
-# function to create matrix of lagged observations
-# author: tobias scheckel
+"""
+    mlag(X, P)
 
-# INPUTS:
-# - X:              TxM-matrix (Traw = number of obs, M number of variables), data
-# - P:              scalar, number of lags
+Create a matrix of lagged observations.
 
-# OUTPUT:
-# - Xlag:           (T-P)x(M*P)-matrix, lagged variables
+# Inputs
+- `X::AbstractMatrix{<:Real}`: `T x M` data matrix
+- `P::Int`: number of lags
 
-# ----- FUNCTION BODY -----
+# Returns
+- `Xlag`: `(T-P) x (M*P)` matrix of lagged variables, ordered as
+  `[X_{t-1} X_{t-2} ... X_{t-P}]`
+
+# Notes
+- If `X` is a `NamedArray`, names are propagated to the output.
+
+# Author
+Tobias Scheckel
+"""
 function mlag(X::AbstractMatrix{<:Real}, P::Int)
     X_raw = X
     X = Matrix{Float64}(X_raw)

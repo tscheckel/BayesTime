@@ -1,14 +1,18 @@
-# function to implement SAVS (add citation)
-# author: tobias scheckel
+"""
+    SAVS(beta, X)
 
-# INPUTS:
-# beta: K-dimensional vector of parameter estimates
-# X: n x K design matrix
+Apply Signal-Adaptive Variable Selection (SAVS) shrinkage to coefficient estimates.
 
-# OUTPUT:
-# -gamma: K-dimensional vector of sparsified SAVS estimates
+# Inputs
+- `beta`: `K`-vector of parameter estimates
+- `X`: `n x K` design matrix
 
-# ---- FUNCTION BODY ----
+# Returns
+- `gamma`: `K`-vector of sparsified SAVS estimates
+
+# Author
+Tobias Scheckel
+"""
 function SAVS(beta, X)
     K = length(beta) # number of parameters
     gamma = zeros(K) # initialize output vector

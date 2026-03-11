@@ -1,17 +1,23 @@
-# function to compute impulse response function of a VAR to a given shock
-# author: tobias Scheckel
+"""
+    get_IRF(; A, shock, P, NHOR)
 
-# INPUTS:
-# - A:              MxK matrix of VAR coeffs
-# - shock:          M-vector of shock
-# - P:              scalar, number of VAR lags
-# - NHOR:           scalar, number of impulse response horizons
+Compute impulse response functions for a VAR(P) to a given shock vector.
 
-# OUTPUTS:
-# IRF:              (NHOR+1)xM-matrix of impulse reponse functions for each variable
+# Inputs
+- `A::Matrix{Float64}`: `M x K` matrix of VAR coefficients
+- `shock::Vector{Float64}`: `M`-vector with initial shock at horizon 0
+- `P::Int`: number of VAR lags
+- `NHOR::Int`: number of response horizons to compute
 
-# ---- FUNCTION BODY ----
-function get_IRF(;A::Matrix{Float64}, shock::Vector{Float64}, P::Int, NHOR::Int)
+# Returns
+- `IRF`: `(NHOR+1) x M` matrix of responses, where row 1 is the impact response (`h=0`)
+
+# Author
+Tobias Scheckel
+"""
+function get_IRF(;
+    A::Matrix{Float64}, shock::Vector{Float64}, P::Int, NHOR::Int
+    )
     # get dimensions
     M = size(shock, 1)
 

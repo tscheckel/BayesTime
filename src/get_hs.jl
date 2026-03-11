@@ -1,17 +1,26 @@
-# function to draw horsehoe prior parameters
-# author: tobias scheckel
+"""
+    get_hs(; bdraw, λ, τ, ν, ζ)
 
-# INPUTS:
-# - bdraw:      vector, regression parameters
-# - λ:  vector, local variance component
-# - τ:     scalar, global variance component
-# - ν:      vector, local auxiliary variables
-# - ζ:    scalar, global auxiliary variables
+Draw/update Horseshoe prior parameters.
 
-# OUTPUTS:
-# - updated values of lambda, tau, nu, zeta
-# - psi = lambda.*tau: prior variance
+# Inputs
+- `bdraw::Vector{Float64}`: regression parameter draw
+- `λ::Vector{Float64}`: local variance components
+- `τ::Float64`: global variance component
+- `ν::Vector{Float64}`: local auxiliary variables
+- `ζ::Float64`: global auxiliary variable
 
+# Returns
+- `Dict` with:
+  - `"ψ"`: prior variances (`λ .* τ`)
+  - `"λ"`: updated local variance components
+  - `"τ"`: updated global variance component
+  - `"ν"`: updated local auxiliary variables
+  - `"ζ"`: updated global auxiliary variable
+
+# Author
+Tobias Scheckel
+"""
 function get_hs(;
     bdraw::Vector{Float64},
     λ::Vector{Float64}, τ::Float64,
