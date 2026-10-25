@@ -39,23 +39,22 @@ function VAR_OLS(;
     K = size(X, 2)
     
     # ESTIMATION
-    y = vec(Y)
-    X_kron = kron(I(M), X)
-
-    # OLS estimate of VAR coeffs:
-    Alpha_hat = reshape(((X_kron'X_kron)\I)*(X_kron'y), K, M)
+    # OLS estimate of VAR coeffs (equation by equation, identical to system OLS since all
+    # equations share the same regressors; avoids the TMxKM Kronecker design matrix):
+    Alpha_hat = X\Y
     # compute residuals
     U = Y - X*Alpha_hat
-    # OLS estimate of 
+    # OLS estimate of residual covariance
     Sigma_hat = U'U/(T-K)
-    
-    # variance covariance matrix of vec(Alpha_hat)
-    Alpha_V = kron(Sigma_hat, (X'X)\I)
+
+    # standard errors of Alpha_hat: vec(Alpha_hat) has covariance Sigma_hat ⊗ (X'X)^-1, whose
+    # diagonal reshaped to KxM is diag((X'X)^-1)*diag(Sigma_hat)'
+    Alpha_se = sqrt.(diag((X'X)\I)*diag(Sigma_hat)')
 
     # for each confidence level: compute CIs of parameter and IRF estimates
     Alpha = fill(NaN, K, M, length(quant))
     for qx in 1:length(quant)
-        Alpha[:,:,qx] = Alpha_hat + sqrt.(reshape(diag(Alpha_V), K, M))*normq[qx]
+        Alpha[:,:,qx] = Alpha_hat + Alpha_se*normq[qx]
     end
 
     Alpha = NamedArray(
