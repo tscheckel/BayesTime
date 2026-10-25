@@ -10,7 +10,9 @@ module BayesTime
     export SAVS
     export trace_plot
     export lower_tri
+    export get_VAR_design
     export VAR_OLS
+    export BVAR_NIW
     export diff_lag
     export data_trans
     export VECM
@@ -28,6 +30,7 @@ module BayesTime
     # Include submodules or helper files
     include("get_hs.jl")
     include("mlag.jl")
+    include("get_VAR_design.jl") # requires mlag.jl
     include("offsetting.jl")
     include("get_companion.jl")
     include("get_IRF.jl") # requires get_companion.jl
@@ -37,6 +40,7 @@ module BayesTime
     include("trace_plot.jl")
     include("lower_tri.jl")
     include("VAR_OLS.jl")
+    include("BVAR_NIW.jl") # requires get_VAR_design.jl, forcePD.jl, get_companion.jl
     include("diff_lag.jl")
     include("data_trans.jl") # requires diff_lag.jl
     include("VECM.jl")
