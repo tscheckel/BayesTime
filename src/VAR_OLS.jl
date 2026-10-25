@@ -49,13 +49,13 @@ function VAR_OLS(;
     # OLS estimate of 
     Sigma_hat = U'U/(T-K)
     
-    # variance covariance matrix of Alpha_hat
-    Alpha_V = kron(Sigma_hat, X'X)
+    # variance covariance matrix of vec(Alpha_hat)
+    Alpha_V = kron(Sigma_hat, (X'X)\I)
 
     # for each confidence level: compute CIs of parameter and IRF estimates
     Alpha = fill(NaN, K, M, length(quant))
     for qx in 1:length(quant)
-        Alpha[:,:,qx] = Alpha_hat + reshape(diag(Alpha_V), K, M)*normq[qx]
+        Alpha[:,:,qx] = Alpha_hat + sqrt.(reshape(diag(Alpha_V), K, M))*normq[qx]
     end
 
     Alpha = NamedArray(
